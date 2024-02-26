@@ -11,7 +11,7 @@ struct Heap{
     void heap_push(Item item){
         H.push_back(item);
         size_t indx = H.size()-1;
-        Item parent = (indx-1)/2;
+        size_t parent = (indx-1)/2;
         while(indx != 0 and H[indx] > H[parent]){
             swap(H[indx], H[parent]);
             indx = parent;
