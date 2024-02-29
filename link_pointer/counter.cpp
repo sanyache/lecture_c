@@ -21,6 +21,9 @@ int main(){
     cout<<"link_counter after increase counter="<<link_counter<<'\n';
     link_counter++;
     cout<<"counter after increase link counter="<<counter<<'\n';
+    int new_counter = 500;
+    link_counter = new_counter;
+    cout<<"counter after link on new_counter"<<counter<<endl;
     string str = "counter";
     string &rStr = str;
     cout<<"str.size()="<<str.size()<<endl;
