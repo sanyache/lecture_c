@@ -89,6 +89,11 @@ public:
     int size(){
         return capacity;
     }
+    ~LinkedList() {
+        while (!is_empty()) {
+            erase(head->item);
+        }
+    }
 };
 
 int main(){
@@ -105,6 +110,7 @@ int main(){
     cout<<'\n'<<pos->item<<endl;
     list.erase(15);
     cout<<"list's size="<<list.size()<<endl;
+    list.erase(9);
     list.print_list();
     return 0;
 }
