@@ -35,11 +35,11 @@ int main(){
         }
         cout<<"the leaving number"<<(prev->next)->item<<'\n';
         link tmp = prev->next;
-        prev->next = prev->next->next;
+        prev->next = tmp->next;
         delete tmp;
     }
     
-    cout<<"the remaining number="<<prev->item;
+    cout<<"the remaining number="<<prev->item<<endl;
     delete (prev);
     return 0;
 }

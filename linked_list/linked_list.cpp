@@ -76,7 +76,7 @@ public:
                 capacity--;
             else
                 cout<<"element not found"<<endl;    
-        } else{
+        } else{ 
             cout<<"The list is empty"<<endl;
         }    
     }
@@ -91,6 +91,7 @@ public:
     }
     ~LinkedList() {
         while (!is_empty()) {
+            cout<<head->item<<'\n';
             erase(head->item);
         }
     }
