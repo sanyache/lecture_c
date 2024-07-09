@@ -1,4 +1,5 @@
 #include<iostream>
+#include<vector>
 
 using namespace std;
 
@@ -16,21 +17,28 @@ int main(){
     total[1] = min(val[0] + val[1], val[1]);
     for(int i=2; i<n; i++){
         total[i] = min(total[i-1], total[i-2]) + val[i];
-        cout<<total[i]<<'\n';
     }
-    cout<<total[n-1]<<'\n';
-    int current_price = total[n-1]-val[n-1];
+    cout<<"min value= "<<total[n-1]<<'\n';
+    int current_price = total[n-1] - val[n-1] ;
     int current_index = n-1;
-    while(current_price>0){
+    vector<int> path;
+    path.push_back(val[n-1]);
+    while(current_price != 0){
         
-        if(total[current_index-1] < total[current_index-2]){
+        if(total[current_index] == total[current_index-1] + val[current_index]){
             current_index = current_index - 1;
         } else {
             current_index = current_index - 2;
         }
-        cout<<"ind="<<current_index<<' '<<val[current_index]<<' ';
-        current_price -= val[current_index];
-        
+        path.push_back(val[current_index]);
+        current_price -= val[current_index]; 
+    }
+
+    for(int i = path.size()-1; i >= 0; i--){
+        cout<<path[i]<<' ';
     }
     return 0;
 }
+// n = 10
+// -5 7 20 1 1 20 2 10 1 1
+// -5 7 1 1 2 1 1
