@@ -53,3 +53,9 @@ int main(){
     cout<<"Max value= "<<max_backpack_value(Products, n, capacity)<<'\n';
     return 0;
 }
+// 3
+// 1500 1
+// 3000 4
+// 2000 3
+// 4
+// answ = 3500
