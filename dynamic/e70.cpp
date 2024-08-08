@@ -36,6 +36,7 @@ int main(){
         for (int j = 0; j < graph[i].size(); j++){
             if(++cell == n){
                 cout<<graph[i][j];
+                break;
             } 
     }
 }
