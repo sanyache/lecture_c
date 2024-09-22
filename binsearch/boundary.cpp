@@ -7,7 +7,7 @@ using namespace std;
 int left_boundary(const vector<int> &A, int n){
     int left = -1;
     cout<<(left < A.size())<<'\n';
-    while(left < int(A.size()) and A[left + 1] < n){
+    while(left < int(A.size())-1 and A[left + 1] < n){
         left ++;
     }
     return left;
@@ -58,9 +58,9 @@ int bin_left_boundary(const vector<int> &A, int n){
 int main(){
 
     vector<int> A = {2,2,2,5,5,7,7,9};
-    cout<<left_boundary(A, 7)<<'\n';
-    cout<<right_boundary(A, 7)<<'\n';
-    cout<<bin_left_boundary(A, 7)<<'\n';
-    cout<<bin_right_boundary(A, 7)<<'\n';
+    cout<<left_boundary(A, 100)<<'\n';
+    cout<<right_boundary(A, 9)<<'\n';
+    cout<<bin_left_boundary(A, 9)<<'\n';
+    cout<<bin_right_boundary(A, 9)<<'\n';
     return 0;
 }
