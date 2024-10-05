@@ -2,10 +2,10 @@
 
 using namespace std;
 
-const int maxN = 51;
+const int maxN = 101;
 
 uint64_t fib_dynamic(int i){
-    static uint64_t knownF[maxN];
+    static uint64_t knownF[maxN]={0};
     if(knownF[i] != 0) return knownF[i];
     if(i<=0 ) return 0;
     if(i == 1) return 1;

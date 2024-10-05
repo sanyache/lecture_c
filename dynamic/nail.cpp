@@ -14,6 +14,7 @@ int main(){
     dist[1] = 10001; dist[2] = nail[2] - nail[1];
     for(int i=3; i<=n; i++){
         dist[i] = min(dist[i-2], dist[i-1]) + nail[i] - nail[i-1];
+        cout<<dist[i]<<' ';
     }
     cout<<dist[n];
     return 0;
