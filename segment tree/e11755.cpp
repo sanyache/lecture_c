@@ -6,18 +6,19 @@ void resize(vector<int> &arr){
     arr.resize(len, 0);
 }
 
+
 class Tree{
     public:
         
         int n;
-        vector<int64_t>seg_t;
+        vector<uint32_t>seg_t;
         Tree(vector<int> &arr){
             n = arr.size();
             seg_t.resize(2*n);
             build(arr, 0, 0, n);
         }
         
-        int64_t sum(int l, int r){
+        uint32_t sum(int l, int r){
             return _sum(l, r, 0, 0, n);
         }
         void update(int ind, int val){
@@ -31,10 +32,12 @@ class Tree{
             if (left == right - 1){
                 seg_t[node] = arr[left];
             } else {
-                int mid = (left + right)/2;
-                build(arr, node*2 + 1, left, mid);
-                build(arr, node*2 + 2, mid, right);
-                seg_t[node] = seg_t[node*2+1] + seg_t[node*2+2];
+                int mid = (left + right) >> 1;
+                int leftNode = (node << 1) + 1;
+                int rightNode = leftNode + 1;
+                build(arr, leftNode, left, mid);
+                build(arr, rightNode, mid, right);
+                seg_t[node] = seg_t[leftNode] + seg_t[rightNode];
             }
         }
         void _update(int ind, int val, int node, int left, int right){
@@ -42,33 +45,39 @@ class Tree{
                 seg_t[node] = val;
                 return;
             }
-            int mid = (left+right)/2;
+            int mid = (left+right) >> 1;
+            int leftNode = (node << 1) + 1;
+            int rightNode = leftNode + 1;
             if(ind < mid){
-                _update(ind, val, 2*node+1, left, mid);
+                _update(ind, val, leftNode, left, mid);
             } else {
-                _update(ind, val, 2*node+2, mid, right);
+                _update(ind, val, rightNode, mid, right);
             }
-            seg_t[node] = seg_t[2*node+1] + seg_t[2*node+2];
+            seg_t[node] = seg_t[leftNode] + seg_t[rightNode];
         }
-        int64_t  _sum(int left,int  right,int node, int l_seg,int  r_seg){
+        uint32_t  _sum(int left,int  right,int node, int l_seg,int  r_seg){
             if(right <= l_seg || left >= r_seg){
                 return 0;
             }
             if (l_seg >= left && r_seg <= right){
                 return seg_t[node];
             }
-            int mid = (l_seg + r_seg)/2;
-            return _sum(left, right, 2*node+1, l_seg, mid) + _sum(left, right, 2*node+2, mid, r_seg);
+            int mid = (l_seg + r_seg) >> 1;
+            int leftNode = (node << 1) + 1;
+            int rightNode = leftNode + 1;
+            return _sum(left, right, leftNode, l_seg, mid) + _sum(left, right, rightNode, mid, r_seg);
         }
         int _get_ind(int val, int node, int l_seg, int r_seg){
             if (l_seg == r_seg-1){
                 return l_seg;
             }
-            int mid = (l_seg + r_seg)/2;
-            if (seg_t[node*2 + 1] >= val){
-                return _get_ind(val, node*2+1, l_seg, mid);
+            int mid = (l_seg + r_seg) >> 1;
+            int leftNode = (node << 1) + 1;
+            int rightNode = leftNode + 1;
+            if (seg_t[leftNode] >= val){
+                return _get_ind(val, leftNode, l_seg, mid);
             } else {
-                return _get_ind(val - seg_t[node*2 + 1], node*2 + 2, mid, r_seg);
+                return _get_ind(val - seg_t[leftNode], rightNode, mid, r_seg);
             }
         }
 };
