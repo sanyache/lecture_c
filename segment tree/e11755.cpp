@@ -26,11 +26,6 @@ class Tree{
         int get_ind(int val){
             return _get_ind(val, 0, 0, n);
         }
-        // void print_tree(){
-        //     for(auto el: seg_t){
-        //         cout<<el<<' ';
-        //     }
-        // }
     private:
         void build(vector<int> &arr, int node, int left, int right){
             if (left == right - 1){
@@ -85,8 +80,8 @@ int main(){
     Tree tree(numbers);
     vector<int>move1(n/2);
     vector<int>move2(n/2);
-    vector<int>choice1;
-    vector<int>choice2;
+    vector<int>choice1(n/2);
+    vector<int>choice2(n/2);
     for(int i=0; i < n/2; i++){
         cin>>move1[i];
     }
@@ -95,10 +90,10 @@ int main(){
     }
     for(int i=0; i<n/2; i++){
         int ind = tree.get_ind(move1[i]);
-        choice1.push_back(ind+1);
+        choice1[i] = ind+1;
         tree.update(ind, 0);
         ind = tree.get_ind(move2[i]);
-        choice2.push_back(ind+1);
+        choice2[i] = ind+1;
         tree.update(ind, 0);
     }
     for(auto el: choice1){
