@@ -1,33 +1,29 @@
 #include<iostream>
 #include<string>
+#include<unordered_map>
 
 using namespace std;
 
 int main(){
-    int n;
+    int64_t n;
     cin>>n;
-    int A[n];
+    int64_t A[n];
     string s;
     cin>>s;
-    for(int i=0; i<n; i++){
-        if(s[i] == 'b'){
-            A[i] = 1;
-            
+    for(int64_t i=0; i<n; i++){
+        A[i] = (s[i] == 'b') ? 1 : -1;
+    }
+    int64_t prefix = 0;
+    int64_t counter = 0;
+    unordered_map<int64_t, int64_t>sum_map;
+    sum_map[0] = 1;
+    for(int64_t  i=1; i<n+1; i++){
+        prefix += A[i-1];
+        if (sum_map.find(prefix) != sum_map.end()) {
+            counter += sum_map[prefix];
+            sum_map[prefix] += 1;
         } else {
-            A[i] = 0;
-        }
-    }
-    uint32_t prefix_sum[n+1] = {0};
-    for(int i=1; i<n+1; i++){
-         prefix_sum[i] = (prefix_sum[i-1] + A[i-1]);
-    }
-    uint32_t counter = 0;
-    for(int  i=1; i<n; i++){
-        for(int j=i+1; j<n+1; j++){
-            int sum = prefix_sum[j] -prefix_sum[i-1];
-            if (sum!=0 and (j-i+1)>1 and (j-i+1) == 2 * sum){
-                counter ++;
-            }    
+            sum_map[prefix] = 1;
         }
     } 
     cout<<counter;           
