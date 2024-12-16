@@ -73,7 +73,7 @@ int main(){
     resize(numbers);
     Tree tree(numbers);
     //tree.update(4, 1);
-    cout<<tree.sum(1, 4);
+    cout<<tree.sum(1, 6);
     tree.print_tree();
     return 0;
 }
