@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int bin_search(const vector<int> A, int n){
+int bin_search(const vector<int> &A, int n){
     int left = 0;
     int right = A.size();
     while(right >= left){
@@ -20,7 +20,7 @@ int bin_search(const vector<int> A, int n){
     return -1;
 }
 
-int search(const vector<int> A, const vector<int> B){
+int search(const vector<int> &A, const vector<int> &B){
 
     for(int i=B.size()-1; i>=0; i--){
         if(bin_search(A, B[i]) != -1){
