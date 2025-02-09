@@ -5,9 +5,11 @@ using namespace std;
 
 typedef int Item;
 
-struct Heap{
-
+class Heap{
+private:
     vector <Item> H;
+public:
+    Heap(){}
     void heap_push(Item item){
         H.push_back(item);
         size_t indx = H.size()-1;
@@ -43,6 +45,12 @@ struct Heap{
     bool heap_is_empty(){
         return H.empty();
     }
+    void heap_print(){
+        for(auto item: H){
+            cout<<item<<' ';
+        }
+        cout<<'\n';
+    }
 };
 
 int main(){
@@ -51,6 +59,7 @@ int main(){
     for(size_t i=0; i<10; i++){
         cin>>item;
         heap.heap_push(item);
+        heap.heap_print();
     }
     while(!heap.heap_is_empty()){
         cout<<heap.heap_pop()<<' ';
