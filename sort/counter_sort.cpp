@@ -1,3 +1,5 @@
+// sorting the numbers that are in the range of 0 to 100
+// using counter sort
 #include<iostream>
 
 using namespace std;
