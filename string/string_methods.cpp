@@ -4,6 +4,8 @@
 using namespace std;
 
 bool cmp(const char& c1, const char& c2){
+    if(isalpha(c1) && !isalpha(c2)) return true;
+    if(!isalpha(c1) && isalpha(c2)) return false;
     if (isupper(c1) && islower(c2)) return false;
     if (islower(c1) && isupper(c2)) return true;
 
@@ -12,7 +14,7 @@ bool cmp(const char& c1, const char& c2){
 
 int main(){
 
-    string word1 = "GameA";
+    string word1 = "Game!A";
     string word2 ("over");
     string word3(3, '!');
     string phrase = word1 + ' ' + word2 + ' ' + word3;
@@ -40,7 +42,7 @@ int main(){
     cout<<phrase<<'\n';
     cout<<"sorted string: ";
     sort(phrase.begin(), phrase.end(), cmp);
-    cout<<phrase;
+    cout<<phrase<<'\n';
     cout<<"is lower"<<islower('a')<<' '<<islower('k');
     return 0;
 }

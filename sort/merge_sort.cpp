@@ -4,7 +4,7 @@ using namespace std;
 
 void merge(int A[], int l, int m, int r){
     int n1 = m-l+1;
-    int n2 = r-m; 
+    int n2 = r-m;
     int L[n1], R[n2];
     for(int i=0; i<n1; i++){
         L[i] = A[l+i];
@@ -41,7 +41,7 @@ void merge_sort(int A[], int l, int r){
     if (l>=r){
         return;
     }
-    int m = l + (r-l)/2;
+    int m = (r+l)/2;
     merge_sort(A, l, m);
     merge_sort(A, m+1, r);
     merge(A, l, m, r);

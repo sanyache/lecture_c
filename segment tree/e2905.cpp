@@ -10,11 +10,11 @@ class Tree{
     public:
         
         uint32_t n;
-        vector<uint32_t>seg_t;
+        vector<uint32_t>seg_t, lazy;
         Tree(vector<uint32_t> &arr){
             n = arr.size();
-            seg_t.resize(2*n);
-            build(arr, 0, 0, n);
+            seg_t.resize(2*n, 0);
+            lazy.resize(2*n, 0);
         }
         
         uint32_t sum(uint32_t l, uint32_t r){
@@ -23,30 +23,26 @@ class Tree{
         void update(uint32_t l, uint32_t r){
             _update(l, r, 0, 0, n);
         }
-        void print_tree(){
-            for(auto el: seg_t){
-                cout<<el<<' ';
-            }
-            cout<<'\n';
-        }
     private:
-        void build(vector<uint32_t> &arr, uint32_t node, uint32_t left, uint32_t right){
-            if (left == right - 1){
-                seg_t[node] = arr[left];
-            } else {
-                uint32_t mid = (left + right)>>1;
-                build(arr, (node<<1)+ 1, left, mid);
-                build(arr, (node<<1) + 2, mid, right);
-                seg_t[node] = seg_t[(node<<1)+1] + seg_t[(node<<1)+2];
+        
+        void propagate(int left, int right, int node){
+            if (lazy[node] != 0){
+                seg_t[node] = (right-left) - seg_t[node];
+                if (right - left > 1){
+                    lazy[node*2+1] ^= 1;
+                    lazy[node*2+2] ^= 1; 
+                }
+                lazy[node] = 0;
             }
         }
         void _update(uint32_t left, uint32_t right, uint32_t node, uint32_t l_seg, uint32_t r_seg){
-           if (right <= l_seg || left >= r_seg) {
+            propagate(l_seg, r_seg, node);    
+            if (right <= l_seg || left >= r_seg) {
             return;
         }
-            if(l_seg == r_seg - 1){
-                cout<<'l'<<l_seg<<" r"<<r_seg<<" node "<<node<<'\n';
-                seg_t[node] ^= 1;
+            if(left <= l_seg && r_seg <= right){
+                lazy[node] ^= 1;
+                propagate(l_seg, r_seg, node);
                 return;
             }
             uint32_t mid = (l_seg+r_seg)/2;
@@ -56,14 +52,15 @@ class Tree{
             seg_t[node] = seg_t[node*2 +1] + seg_t[node*2 +2];
         }
         uint32_t  _sum(uint32_t left,uint32_t  right,uint32_t node, uint32_t l_seg,uint32_t  r_seg){
+            propagate(l_seg, r_seg, node);
             if(right <= l_seg || left >= r_seg){
                 return 0;
             }
             if (l_seg >= left && r_seg <= right){
                 return seg_t[node];
             }
-            uint32_t mid = (l_seg + r_seg)>>1;
-            return _sum(left, right, (node<<1)+1, l_seg, mid) + _sum(left, right, (node<<1)+2, mid, r_seg);
+            uint32_t mid = (l_seg + r_seg)/2;
+            return _sum(left, right, (node*2)+1, l_seg, mid) + _sum(left, right, (node*2)+2, mid, r_seg);
         } 
 };
 int main(){
@@ -78,11 +75,10 @@ int main(){
         l--;
         r--;
         if(oper == 0){
-            tree.update(l, r);
+            tree.update(l, r + 1);
         } else {
             rez.push_back(tree.sum(l, r+1));
         }
-        tree.print_tree();
     }   
     for(auto el: rez){
         cout<<el<<'\n';
