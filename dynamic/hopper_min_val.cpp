@@ -23,7 +23,7 @@ int main(){
     int current_index = n-1;
     vector<int> path;
     path.push_back(val[n-1]);
-    while(current_price != 0){
+    while(current_index > 0){
         
         if(total[current_index] == total[current_index-1] + val[current_index]){
             current_index = current_index - 1;
