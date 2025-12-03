@@ -27,4 +27,5 @@ int main(){
     for(int day: rez){
         cout<<day<<' ';
     }
+    return 0;
 }
