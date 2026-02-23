@@ -21,12 +21,12 @@ int main(){
     link second_node = new Node(2);
     first_node->next = second_node;
     cout<<second_node->item<<' '<<first_node->next->item<<'\n';
-    link third_node = new Node(3);
+    link third_node = new Node(5);
     second_node->next = third_node;
     cout<<first_node->next->next->item<<'\n';
     link t = first_node->next;
-    delete t;
     first_node->next = first_node->next->next;
+    delete t;
     cout<<first_node->next->item<<'\n';
     delete third_node;
     delete first_node;
