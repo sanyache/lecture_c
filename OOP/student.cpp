@@ -38,7 +38,7 @@ public:
     User(string first_name, string last_name, string phone, string birth_day)
         : first_name(first_name), last_name(last_name), phone(phone), birth_day(birth_day) {}
 
-    string getFullName() const {
+    virtual string getFullName() const {
         return first_name + " " + last_name;
     }
 };
@@ -52,8 +52,10 @@ public:
     Student(string first_name, string last_name, string phone, string birth_day)
         : User(first_name, last_name, phone, birth_day), group(nullptr) {}
 
-    string getName() const {
-        return getFullName();
+    string getFullName() const override{
+        string add_group = "Student from " + group->getName() + ' ';
+        
+        return User::getFullName() + add_group;
     }
 
     Group* getGroup() const {
@@ -105,7 +107,7 @@ void Group::printStudents() const {
     }
 
     for (auto st : students) {
-        cout << "- " << st->getName() << endl;
+        cout << "- " << st->getFullName() << endl;
     }
 }
 

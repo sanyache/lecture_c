@@ -37,12 +37,7 @@ public:
     }
     
     void push_front(int value) {
-        Node* newNode = new Node(value);
-        
-        newNode->prev = head;
-        newNode->next = head->next;
-        head->next->prev = newNode;
-        head->next = newNode;
+        insert_after(head, value);
         
     }
     
@@ -51,10 +46,7 @@ public:
             throw invalid_argument("list is empty");
         }
         int result = tail->prev->item;
-        auto tmp = tail->prev;
-        tmp->prev->next = tail;
-        tail->prev = tmp->prev;
-        delete tmp;
+        erase(tail->prev);
         
         return result;
     }
@@ -64,22 +56,13 @@ public:
             throw invalid_argument("list is empty");
         }
         int result = head->next->item;
-        
-        auto tmp = head->next;
-        head->next = tmp->next;
-        tmp->next->prev = head;
-        delete tmp;
-
-           
+        erase(head->next);
+                  
         return result;
     }
     
-    void insert(Node* pos, Item item) {
+    void insert_after(Node* pos, Item item) {
         
-        if(pos->next == tail){
-            push_back(item);
-            return;
-        }
         Node* newNode = new Node(item);
         newNode->next = pos->next;
         newNode->prev = pos;
@@ -100,18 +83,9 @@ public:
         if (this->is_empty()) {
             throw invalid_argument("list is empty");
         }
-        if (node->prev == head) {
-            pop_front();
-            return;
-        }
-        if (node->next == tail) {
-            pop_back();
-            return;
-        }
-        auto prev = node->prev;
-        auto next = node->next;
-        prev->next = next;
-        next->prev = prev;
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
+        
         delete node;
     }
     
@@ -146,7 +120,7 @@ public:
 
 int main() {
     LinkedList list = LinkedList();
-    list.pop_back();
+    //list.pop_back();
     list.push_front(20);
     list.push_back(30);
     list.push_back(40);
@@ -154,8 +128,8 @@ int main() {
     cout<<list.pop_back()<<'\n';
     list.pop_front();
     link pos = list.find(30);
-    list.insert(pos, 50);
-    list.insert(pos, 35);
+    list.insert_after(pos, 50);
+    list.insert_after(pos, 35);
     // for (int i = 0; i < 10; ++i) {
     //     list.push_back(i);
     // }
