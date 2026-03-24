@@ -31,14 +31,12 @@ public:
         return new_node;
     }
     link find(Item item){
-        link find_pos = nullptr;
         for(auto it=this->begin(); it!=this->end(); it = it->next){
             if(it->item == item) {
-                find_pos = it;
-                break;
+                return it;
             }
         }
-        return find_pos;
+        return nullptr;
     }
     link begin() const {
         return head;
