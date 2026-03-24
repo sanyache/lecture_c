@@ -51,33 +51,31 @@ public:
     bool is_empty() const {
         return head == nullptr;
     }
-    void erase(Item item){
+    void erase(Item x){
         if(not this->is_empty()){
-            bool find = false;
-            if(item == head->item){
+            bool is_find = false;
+            if(x == head->item){
                 link tmp = head;
                 head = tmp->next;
                 delete tmp;
-                find = true;
+                is_find = true;
             } else {
-                link prev = head;
-                while(prev->next != nullptr){
-                    if(prev->next->item == item){
-                        link tmp = prev->next;
-                        prev->next = tmp->next;
-                        delete tmp;
-                        break;
-                        find = true;
-                    } 
-                    prev = prev->next;
-                }    
+              for(auto it= begin(); it->next != end(); it = it->next){
+                if(it->next->item == x){
+                    Node* tmp = it->next;
+                    it->next = it->next->next;
+                    is_find = true;
+                    break;
+                }  
+              }   
             }
-            if (find)
-                capacity--;
-            else
-                cout<<"element not found"<<endl;    
-        } else{ 
-            cout<<"The list is empty"<<endl;
+            if (!is_find){    
+                cout<<"Element not found"<<endl;
+            }  else {
+                capacity --;
+            }  
+        } else {
+            cout<<"This list is empty"<<'\n';
         }    
     }
     void print_list(){
@@ -90,9 +88,11 @@ public:
         return capacity;
     }
     ~LinkedList() {
-        while (!is_empty()) {
-            cout<<head->item<<'\n';
-            erase(head->item);
+        Node* it = head;
+        while ( it != nullptr) {
+            Node* tmp = it;
+            it = it->next;
+            delete tmp;
         }
     }
 };
