@@ -29,15 +29,20 @@ public:
     }
     
     void push_back(int value) {
-        Node* newNode = new Node(value);    
-        newNode->next = tail;
-        newNode->prev = tail->prev;
-        tail->prev->next = newNode;
-        tail->prev = newNode;
+       
+
+
+
+
+
     }
     
     void push_front(int value) {
-        insert_after(head, value);
+        
+
+
+
+
         
     }
     
@@ -52,11 +57,11 @@ public:
     }
     
     Item pop_front() {
-        if (this->is_empty()) {
-            throw invalid_argument("list is empty");
-        }
-        int result = head->next->item;
-        erase(head->next);
+        
+
+
+
+
                   
         return result;
     }
@@ -72,11 +77,9 @@ public:
     }
     Node* find(Item item){
 
-        for(auto it=this->begin(); it!=this->end(); it=it->next ){
-            if(it->item == item){
-                return it;
-            }
-        }
+        
+
+
         return nullptr;
     }
     void erase(Node* node) {
@@ -109,18 +112,17 @@ public:
     }
     
     ~LinkedList() {
-        while (!is_empty()) {
-            Item item = pop_back();
-            cout<<item<<'\n';
-        }
-        delete tail;
-        delete head;
+        
+
+
+
+
+        
     }
 };    
 
 int main() {
     LinkedList list = LinkedList();
-    //list.pop_back();
     list.push_front(20);
     list.push_back(30);
     list.push_back(40);
@@ -130,11 +132,6 @@ int main() {
     link pos = list.find(30);
     list.insert_after(pos, 50);
     list.insert_after(pos, 35);
-    // for (int i = 0; i < 10; ++i) {
-    //     list.push_back(i);
-    // }
-    // list.pop_front();
-    // list.push_front(5);
     list.print_list();
     return 0;
 }
