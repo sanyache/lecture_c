@@ -1,21 +1,15 @@
-#include <iostream>
-#include<string>
-using namespace std;
-typedef int Item;
- 
+
 struct Node {
-    Item item;
+    int item;
     Node* next;
     Node* prev;
-    Node(Item x){
+    Node(int x){
         item = x;
         next = nullptr;
         prev = nullptr;
     }
 };
  
-typedef Node* link;
-
 class LinkedList {
 private:
     Node* head; 
@@ -46,7 +40,7 @@ public:
         
     }
     
-    Item pop_back() {
+    int pop_back() {
         if (this->is_empty()) {
             throw invalid_argument("list is empty");
         }
@@ -56,7 +50,7 @@ public:
         return result;
     }
     
-    Item pop_front() {
+    int pop_front() {
         
 
 
@@ -66,7 +60,7 @@ public:
         return result;
     }
     
-    void insert_after(Node* pos, Item item) {
+    void insert_after(Node* pos, int item) {
         
         Node* newNode = new Node(item);
         newNode->next = pos->next;
@@ -75,7 +69,7 @@ public:
         pos->next = newNode;
         
     }
-    Node* find(Item item){
+    Node* find(int item){
 
         
 
@@ -120,18 +114,3 @@ public:
         
     }
 };    
-
-int main() {
-    LinkedList list = LinkedList();
-    list.push_front(20);
-    list.push_back(30);
-    list.push_back(40);
-    list.print_list();
-    cout<<list.pop_back()<<'\n';
-    list.pop_front();
-    link pos = list.find(30);
-    list.insert_after(pos, 50);
-    list.insert_after(pos, 35);
-    list.print_list();
-    return 0;
-}
