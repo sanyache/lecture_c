@@ -1,42 +1,34 @@
-#include <iostream>
-#include <vector>
-#include <cmath>
+#include<iostream>
+#include<vector>
+#include<cmath>
 
 using namespace std;
 
-struct Point {
-    double x;
-    double y;
+struct Point
+{
+    float x;
+    float y;
 };
 
-// Функція для обчислення площі многокутника
-double polygonArea(const vector<Point>& points) {
+float polygonArea(const vector<Point> &points){
     int n = points.size();
-    double area = 0;
-
-    for (int i = 0; i < n; ++i) {
-        const Point& p1 = points[i];
-        const Point& p2 = points[(i + 1) % n]; // наступна точка, з циклічністю
-        area += (p1.x * p2.y - p1.y * p2.x);   // векторний добуток
+    float s = 0;
+    for(int i=0; i<n-1; i++){
+        s += points[i].x * points[i+1].y - points[i+1].x * points[i].y;
     }
-
-    return fabs(area) / 2.0; // модуль половини суми векторних добутків
+    s += points[n-1].x * points[0].y - points[0].x * points[n-1].y;
+    return fabs(s/2.0);
 }
 
-int main() {
+int main(){
+
     int n;
-    cout << "Введіть кількість вершин багатокутника: ";
-    cin >> n;
-
+    cin>>n;
     vector<Point> points(n);
-    cout << "Введіть координати " << n << " точок (x y):\n";
-    for (int i = 0; i < n; ++i) {
-        cin >> points[i].x >> points[i].y;
+    for(int i=0; i<n; i++){
+        cin>>points[i].x>>points[i].y;
     }
-
-    double area = polygonArea(points);
-    cout << "Площа багатокутника: " << area << endl;
-
+    cout<<polygonArea(points);
     return 0;
 }
 // (3,6) (3,10) (6.42, 12) (9.84, 10) (9.84, 6) (6.42, 4) - 41.04
