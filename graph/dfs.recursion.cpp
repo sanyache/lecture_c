@@ -11,7 +11,6 @@ void dfs(vector<vector <int>> adj, int start){
 
     for(auto vertex: adj[start]){
         if(!visited[vertex]){
-            visited[vertex] = true;
             dfs(adj, vertex);
         }
     }
