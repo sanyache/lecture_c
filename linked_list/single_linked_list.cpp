@@ -1,24 +1,29 @@
 #include<iostream>
 
 using namespace std;
-typedef int Item;
-struct  Node
-{
-    Item item;
-    Node* next;
-    Node(Item x, Node* t){
-        item = x;
-        next = t;
-    } 
-};
+struct Node
+    {
+        int item;
+        Node* next;
+        Node(int x, Node* t=nullptr){
+            item = x;
+            next = t;
+        }
+    };
+
 typedef Node* link;
 
 int main(){
-link first_node = new Node(100, nullptr);
-cout<<"first item="<<first_node->item<<endl;
-cout<<"first next="<<first_node->next<<endl;
-link second_node = new Node(200, nullptr);
+link first_node = new Node(1);
+cout<<first_node->item<<'\n';
+link second_node = new Node(2);
+cout<<second_node->item<<'\n';
 first_node->next = second_node;
-cout<<"second="<<first_node->next->item;
-
+cout<<first_node->next->item<<'\n';
+link third_node = new Node(3);
+second_node->next = third_node;
+cout<<first_node->next->next->item<<'\n';
+first_node->next = third_node;
+delete second_node;
+cout<<first_node->next->item<<'\n';
 } 
