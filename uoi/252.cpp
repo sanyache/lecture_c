@@ -9,6 +9,7 @@ using namespace std;
     cin>>x>>d;
     vector<int> prime, rez;
     if(x<d){
+        cout<<1<<'\n';
         cout<< x;
         return 0;
     }
@@ -34,18 +35,20 @@ using namespace std;
         prime.push_back(n);
     }
     int l = 0;
-    for(int r=prime.size()-1; r>=0; r--){
-        if(l > r){
-            break;
-        } else {
-            int suf = 1;
-            while(l != r and prime[r] * suf*prime[l] <= d){
-                suf *= prime[l];
-                l ++;
+    int int_sq = static_cast<int>(std::sqrt(x)); 
+    for(int i=min(d, int_sq); i>=2; i--){
+        bool is_end = false;
+        while(x%i==0){
+            rez.push_back(i);
+            if(x/i <= d and x/i > 1){
+                rez.push_back(x/i);
+                is_end  =true;
+                break;
+            } else {
+                x /= i;
             }
-            rez.push_back(prime[r] * suf);
-            
         }
+        if(is_end) break;
     }
     cout<<rez.size()<<'\n';
     for(auto el: rez){
